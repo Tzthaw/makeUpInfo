@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFDBCF</color>
+    <color name="colorPrimaryDark">#FFDBCF</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="my_statusbar_color">#FFDBCF</color>
+</resources>

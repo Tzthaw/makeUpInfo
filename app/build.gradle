@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.ptut.makeupinfo"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding{
+        enabled=true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(path: ':appbase')
+
+    //Kotlin
+    implementation Kotlin.stdblib_jdk
+
+    //Permission
+    implementation CommonLibs.dexter
+
+    //Navigation
+    implementation AndroidArchNavigation.fragment
+    implementation AndroidArchNavigation.fragment_ktx
+    implementation AndroidArchNavigation.ui
+    implementation AndroidArchNavigation.ui_ktx
+    androidTestImplementation AndroidArchNavigation.testing
+
+    //AndroidX
+    implementation AndroidXCardView.card_view
+    implementation AndroidXConstraintLayout.constraint_layout
+    implementation AndroidXFragment.fragment
+    implementation AndroidXPalette.palette
+
+    //Rx
+    implementation RxBinding.platform
+    implementation RxBinding.appcompat
+
+    //Dagger
+    kapt Dagger.compiler
+    kapt Dagger.android_processor
+
+    //Moshi
+    implementation Moshi.core
+
+    //Glide
+    implementation Glide.runtime
+    implementation Glide.transformations
+    kapt Glide.compiler
+
+    //Image picker
+    implementation CommonLibs.android_crop
+
+    //Debugging
+    implementation Stetho.core
+
+}

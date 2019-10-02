@@ -1,0 +1,31 @@
+import com.ptut.domain.model.ProductId;
+import com.ptut.domain.model.Products;
+
+CREATE TABLE productWithBrand(
+  id INTEGER AS ProductId NOT NULL PRIMARY KEY,
+  websiteLink TEXT NOT NULL,imageLink TEXT NOT NULL,
+  rating REAL AS Double NOT NULL,description TEXT NOT NULL,
+  createdAt TEXT NOT NULL,apiFeaturedImage TEXT NOT NULL,
+  productType TEXT NOT NULL,updatedAt TEXT NOT NULL,
+  price TEXT NOT NULL,name TEXT NOT NULL,
+  brand TEXT NOT NULL,productApiUrl TEXT NOT NULL,
+  productLink TEXT NOT NULL
+);
+
+select_all:
+SELECT * FROM productWithBrand;
+
+select_by_id:
+SELECT * FROM productWithBrand WHERE id=?;
+
+insert_or_replace:
+INSERT OR REPLACE INTO productWithBrand(
+    id,websiteLink,imageLink,rating,description,createdAt,apiFeaturedImage,
+    productType,updatedAt,price,name,brand,productApiUrl,productLink
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+delete_all:
+DELETE FROM productWithBrand;
+
+delete:
+DELETE FROM productWithBrand WHERE id=?;
