@@ -12,6 +12,9 @@ import com.ptut.makeupinfo.R
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import com.ptut.makeupinfo.darkmode.ThemeHelper
+import com.ptut.makeupinfo.feature.utils.DARK_MODE
+import com.ptut.makeupinfo.feature.utils.LIGHT_MODE
 
 
 class ProductByBrandActivity
@@ -37,6 +40,13 @@ class ProductByBrandActivity
         productRecycler.adapter=productAdapter
         productRefresh.setOnRefreshListener {
             viewModel.refreshProductList("maybelline")
+        }
+
+        nightModeSwitch.setOnClickListener {
+            when(nightModeSwitch.isChecked){
+                true-> ThemeHelper.applyTheme(DARK_MODE)
+                false->ThemeHelper.applyTheme(LIGHT_MODE)
+            }
         }
     }
 

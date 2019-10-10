@@ -14,19 +14,14 @@ import javax.inject.Inject
 
 class ProductCacheDataSourceRealImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences,
-    private val database: ProductByBrandDatabase,
-    private val productCacheEntityMapper: ProductCacheEntityMapper
+    private val database: ProductByBrandDatabase
 ):ProductCacheDataSource{
 
     companion object {
         private const val PREF_KEY_PRODUCT = "PRODUCT"
     }
 
-    private val moshi=Moshi.Builder().build()
-
-
     override fun putProduct(productEntity: List<ProductEntity>) {
-
       database.transaction {
           productEntity.forEach{
               item->
@@ -63,8 +58,7 @@ class ProductCacheDataSourceRealImpl @Inject constructor(
         }
     }
 
-    fun mapRequestToProduct(item:ProductWithBrand):ProductEntity{
-        val product=database.productByBrandQueries.select_by_id(item.id).executeAsOne()
+    private fun mapRequestToProduct(item:ProductWithBrand):ProductEntity{
         return ProductEntity(
             websiteLink = item.websiteLink,
             imageLink = item.imageLink,

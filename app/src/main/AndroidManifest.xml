@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-        tools:targetApi="m"
+        android:forceDarkAllowed="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".feature.productbybrand.ProductByBrandActivity">
             <intent-filter>

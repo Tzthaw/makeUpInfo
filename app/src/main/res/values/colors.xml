@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#FFDBCF</color>
     <color name="colorAccent">#D81B60</color>
     <color name="my_statusbar_color">#FFDBCF</color>
+
+    <color name="title_color">#000000</color>
+    <color name="main_bg">#ffffff</color>
+    <color name="primaryTextColor">#808080</color>
 </resources>

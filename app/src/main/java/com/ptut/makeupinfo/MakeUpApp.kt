@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.StrictMode
 import com.ptut.appbase.di.AppInjector
-import com.ptut.makeupinfo.di.DaggerAppComponent
+import com.ptut.makeupinfo.di.*
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -12,6 +12,11 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MakeUpApp:Application(), HasActivityInjector {
+
+    companion object {
+        lateinit var component: AppGlideComponent
+    }
+
     @Inject
     lateinit var dispatchingAndroidInjector:
             DispatchingAndroidInjector<Activity>
@@ -24,12 +29,17 @@ class MakeUpApp:Application(), HasActivityInjector {
             StrictMode.ThreadPolicy.Builder()
                 .detectAll()
                 .penaltyLog()
-                .build()
-        )
+                .build())
+
+        createComponent()
+
+
         DaggerAppComponent.builder()
             .application(this)
-            .build()
-            .inject(this)
+            .build().inject(this)
+
+        component.inject(this)
+
         AppInjector.initAutoInjection(this)
 
 
@@ -37,11 +47,15 @@ class MakeUpApp:Application(), HasActivityInjector {
             Timber.plant(Timber.DebugTree())
             //Stetho.initializeWithDefaults(this)
         }
-        StrictMode.setThreadPolicy(
-            StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .build()
-        )
+
+
+
+    }
+
+    private fun createComponent() {
+        component = DaggerAppGlideComponent
+            .builder()
+            .appGlideModule(AppGlideModule(this))
+            .build()
     }
 }

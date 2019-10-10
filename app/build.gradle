@@ -70,4 +70,8 @@ dependencies {
     //Debugging
     implementation Stetho.core
 
+
+    api OkHttp.client
+    implementation OkHttp.logger
+
 }

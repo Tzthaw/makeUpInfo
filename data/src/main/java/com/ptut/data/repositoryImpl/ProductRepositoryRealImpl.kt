@@ -15,17 +15,23 @@ import javax.inject.Inject
 class ProductRepositoryRealImpl @Inject constructor(
     private val productNetworkDataSource: ProductNetworkDataSource,
     private val productCacheDataSource: ProductCacheDataSource,
-    private val productCacheMapper:ProductCacheMapper
+    private val productCacheMapper: ProductCacheMapper
 ) : ProductRepository {
     val threadCt = Runtime.getRuntime().availableProcessors() + 1
     val executor = Executors.newFixedThreadPool(threadCt)!!
     val scheduler = Schedulers.from(executor)
     override fun getProductsByBrand(brandName: String): Single<List<Products>> {
+//        return Single.fromCallable {
+//            productNetworkDataSource.getProductByBrand(brandName)
+//        }.doOnError {
+//            productCacheMapper.map(
+//                productCacheDataSource.getProduct()!!)
+//        }
+        productCacheDataSource.putProduct(
+            productCacheMapper.reverseMap(productNetworkDataSource.getProductByBrand(brandName)))
         return Single.fromCallable {
-            productNetworkDataSource.getProductByBrand(brandName)
-        }.doOnError {
-            productCacheMapper.map(
-                productCacheDataSource.getProduct()!!)
+            productCacheMapper.map(productCacheDataSource.getProduct()!!)
         }
+
     }
 }
